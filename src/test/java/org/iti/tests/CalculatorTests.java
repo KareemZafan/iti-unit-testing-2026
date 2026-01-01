@@ -74,7 +74,7 @@ public class CalculatorTests {
     @Tag("FEB_RELEASE")
     //@Disabled
     //@EnabledForJreRange(min = JRE.JAVA_8, max = JRE.JAVA_21)
-    @DisabledOnOs(OS.LINUX)
+    @DisabledOnOs(OS.WINDOWS)
     void testMultiplication() {
 
         // Arrange
@@ -169,6 +169,5 @@ public class CalculatorTests {
         assertEquals(0, calculator.abs(0));
 
     }
-
 
 }
