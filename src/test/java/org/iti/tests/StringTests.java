@@ -7,6 +7,10 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -31,5 +35,11 @@ public class StringTests {
     @ValueSource(strings = {"leve", "adam", "roto", "ref", "car"})
     void testIsPalindromeStringFalsyPath(String input) {
         assertFalse(stringUtils.isPalindromeString(input));
+    }
+
+    @Test
+    void testContains(){
+        List<String> activeTasks = new ArrayList<>(List.of("task1", "task2", "task3", "task4", "task5"));
+        assertTrue(activeTasks.containsAll(Arrays.asList("task1", "task2", "task3")));
     }
 }

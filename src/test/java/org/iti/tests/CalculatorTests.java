@@ -1,15 +1,14 @@
 package org.iti.tests;
 
 import org.iti.Calculator;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.condition.*;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.CsvFileSource;
 import org.junit.jupiter.params.provider.MethodSource;
 
+import java.util.concurrent.TimeUnit;
 import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -73,6 +72,9 @@ public class CalculatorTests {
 
     @Test
     @Tag("FEB_RELEASE")
+    //@Disabled
+    //@EnabledForJreRange(min = JRE.JAVA_8, max = JRE.JAVA_21)
+    @DisabledOnOs(OS.LINUX)
     void testMultiplication() {
 
         // Arrange
@@ -90,7 +92,7 @@ public class CalculatorTests {
 
     }
 
-    @Test
+    @RepeatedTest(2)
     void testDivision() {
 
         // Arrange
@@ -121,9 +123,13 @@ public class CalculatorTests {
         assertEquals(1, calculator.pow(-12, 0));
         assertEquals(0.08333333333333333, calculator.pow(12, -1));
         assertEquals(0, calculator.pow(0, 12));
+
+        ArithmeticException ex = assertThrowsExactly(ArithmeticException.class, () -> calculator.pow(0, 0));
+        assertEquals("Infinity", ex.getMessage());
     }
 
     @Test
+    // @Timeout(unit = TimeUnit.MILLISECONDS, value = 1)
     void testSquareRoot() {
 
         // Arrange
